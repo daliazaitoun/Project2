@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/pages/login_page.dart';
 import 'package:project2/widgets/Custom_text_button.dart';
 import 'package:project2/widgets/card_widget.dart';
 
@@ -66,16 +67,34 @@ class _ProfilePageState extends State<ProfilePage> {
                         CardWidget(title: "Settings", onPressed: () {}),
                         CardWidget(title: "Achievements", onPressed: () {}),
                         CardWidget(title: "About us", onPressed: () {}),
-                        CustomTextButton(label: "logout", onPressed: () {}),
-                       
+                        CustomTextButton(
+                            label: "logout",
+                            onPressed: () {
+                           //   Navigator.push(
+                               //   context, MaterialPageRoute(builder: (ctx)=> HomePage()));
+                               FirebaseAuth.instance.signOut();
+                             Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => LoginPage()));
+                            }),
                       ],
                     );
                   } else {
-                    return Text('Not Logged In');
+                    return Column(
+                      children: [
+                        Text('Not Logged In'),
+                        CustomTextButton(
+                            label: "Login",
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (ctx)=> LoginPage()));
+                            }),
+                      ],
+                    );
+
+            
                   }
                 }),
-         
-            
           ],
         ),
       ),

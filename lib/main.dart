@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project2/cubit/auth_cubit.dart';
 import 'package:project2/firebase_options.dart';
+import 'package:project2/pages/courses_page.dart';
 import 'package:project2/pages/home_page.dart';
 import 'package:project2/pages/login_page.dart';
 import 'package:project2/pages/onboarding_page.dart';
@@ -48,20 +49,24 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (settings) {
         final String routeName = settings.name ?? '';
-        final Map? data = settings.arguments as Map?;
+        // final Map? data = settings.arguments as Map?;
         switch (routeName) {
           case LoginPage.id:
             return MaterialPageRoute(builder: (context) => const LoginPage());
           case SignUpPage.id:
             return MaterialPageRoute(builder: (context) => const SignUpPage());
           case ResetPasswordPage.id:
-            return MaterialPageRoute(builder: (context) => const ResetPasswordPage());
+            return MaterialPageRoute(
+                builder: (context) => const ResetPasswordPage());
           case OnBoardingPage.id:
-            return MaterialPageRoute(builder: (context) => const OnBoardingPage());
-          // case HomePage.id:
-          //   return MaterialPageRoute(builder: (context) => const HomePage());
-            case ProfilePage.id:
+            return MaterialPageRoute(
+                builder: (context) => const OnBoardingPage());
+          case HomePage.id:
+            return MaterialPageRoute(builder: (context) => const HomePage());
+          case ProfilePage.id:
             return MaterialPageRoute(builder: (context) => const ProfilePage());
+          case CoursePage.id:
+            return MaterialPageRoute(builder: (context) => CoursePage());
 
           default:
             return MaterialPageRoute(builder: (context) => const SplashPage());

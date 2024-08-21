@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project2/utils/color_utilis.dart';
 
 class CardWidget extends StatefulWidget {
   final String title;

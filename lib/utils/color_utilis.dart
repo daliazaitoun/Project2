@@ -8,4 +8,9 @@ class ColorUtility {
   static const main = Color(0xff477B72);
   static const mediumlBlack = Color(0xff1D1B20);
   static const gbScaffold = Color(0xffFCFCFC);
+  static const Color lightScaffoldColor = Colors.white;
+  static const Color darkScaffoldColor = Colors.black;
+  static const Color lightCardColor = Color.fromARGB(106, 250, 250, 250);
+  static const Color lightPrimary = Color(0xff181059);
+  static const Color darkPrimary = Color.fromARGB(255, 94, 75, 236);
 }
