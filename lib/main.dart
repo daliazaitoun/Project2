@@ -14,6 +14,7 @@ import 'package:project2/pages/profile.dart';
 import 'package:project2/pages/reset_password_page.dart';
 import 'package:project2/pages/signup_page.dart';
 import 'package:project2/pages/splash_page.dart';
+import 'package:project2/pages/upload_page.dart';
 import 'package:project2/services/pref.service.dart';
 import 'package:project2/utils/color_utilis.dart';
 
@@ -69,8 +70,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const HomePage());
           case ProfilePage.id:
             return MaterialPageRoute(builder: (context) => const ProfilePage());
-          case CoursePage.id:
-            return MaterialPageRoute(builder: (context) => CoursePage());
+          case UploadFileScreen.id:
+            return MaterialPageRoute(builder: (context) => UploadFileScreen());
               case CourseDetailsPage.id:
             return MaterialPageRoute(
                 builder: (context) => CourseDetailsPage(

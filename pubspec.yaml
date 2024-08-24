@@ -44,6 +44,8 @@ dependencies:
   video_box:
     git:
       url: https://github.com/mahmoudelgharabawi/flutter_video_box.git
+  firebase_storage: ^11.6.0
+  file_picker: ^8.1.2
 
 dev_dependencies:
   flutter_test:

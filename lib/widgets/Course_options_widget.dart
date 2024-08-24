@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:project2/models/course.dart';
 import 'package:project2/models/lecture.dart';
@@ -67,7 +66,7 @@ class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black26,
                             blurRadius: 10,
@@ -87,34 +86,34 @@ class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
                               children: [
                                 Text(
                                   'Lecture ${lectures[index].sort}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 IconButton(
                                     onPressed: () {},
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.file_download_outlined,
                                       size: 30,
                                     )),
                               ],
                             ),
-                            Text(lectures[index].title!, style: TextStyle(
+                            Text(lectures[index].title!, style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400),
                                 ),
                             Text(lectures[index].describtion!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w400),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Row(
                               children: [
                                 Text(
                                     "Duration \n ${lectures[index].duration} min"),
-                                Spacer(),
-                                Icon(Icons.play_circle_outline_sharp,size: 45,),
+                                const Spacer(),
+                                const Icon(Icons.play_circle_outline_sharp,size: 45,),
                               ],
                             ),
                           ],

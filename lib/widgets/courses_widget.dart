@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/models/course.dart';
 import 'package:project2/pages/course_details_page.dart';
-import 'package:project2/pages/courses_page.dart';
 import 'package:project2/utils/color_utilis.dart';
 
 class CoursesWidget extends StatefulWidget {
@@ -92,7 +91,7 @@ class _CoursesWidgetState extends State<CoursesWidget> {
                               ))),
 
                       //  Image.network(courses[index].image ?? 'No image'),
-                      SizedBox(
+                      const SizedBox(
                         height: 7,
                       ),
                       Padding(
@@ -104,7 +103,7 @@ class _CoursesWidgetState extends State<CoursesWidget> {
                             Row(
                               children: [
                                 Text('$_rating'),
-                                SizedBox(
+                                const SizedBox(
                                   width: 7,
                                 ),
                                 Row(
@@ -124,16 +123,16 @@ class _CoursesWidgetState extends State<CoursesWidget> {
                             ),
                             Text(
                               courses[index].title ?? 'No Name',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w800),
                             ),
                             Row(
                               children: [
-                                Icon(Icons.person_outline_sharp),
+                                const Icon(Icons.person_outline_sharp),
                                 Text(
                                   courses[index].instructor!.name ??
                                       'No Author',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -143,7 +142,7 @@ class _CoursesWidgetState extends State<CoursesWidget> {
                               children: [
                                 Text(
                                   "\$  ${courses[index].price.toString()}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w800,
                                       color: ColorUtility.main),
@@ -165,9 +164,9 @@ class _CoursesWidgetState extends State<CoursesWidget> {
   // Builds a single star icon, either filled or empty based on the rating
   Widget _buildStar(int index) {
     if (index < _rating) {
-      return Icon(Icons.star, color: ColorUtility.main);
+      return const Icon(Icons.star, color: ColorUtility.main);
     } else {
-      return Icon(Icons.star_border, color: ColorUtility.main);
+      return const Icon(Icons.star_border, color: ColorUtility.main);
     }
   }
 }

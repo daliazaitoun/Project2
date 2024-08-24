@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project2/pages/courses_page.dart';
+import 'package:project2/pages/upload_page.dart';
 import 'package:project2/widgets/categories_widget.dart';
 import 'package:project2/widgets/courses_widget.dart';
 import 'package:project2/widgets/label_widget.dart';
@@ -28,9 +28,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               LabelWidget(
                 name: 'Categories',
-                onSeeAllClicked: () {
-                
-                },
+                onSeeAllClicked: () {},
               ),
               CategoriesWidget(),
               const SizedBox(
@@ -40,14 +38,17 @@ class _HomePageState extends State<HomePage> {
                 name: 'Top Seller Courses',
                 onSeeAllClicked: () {},
               ),
-              CoursesWidget(
+              const CoursesWidget(
                 rankValue: 'top_rated',
               ),
               LabelWidget(
                 name: 'Top Rated Courses',
-                onSeeAllClicked: () {},
+                onSeeAllClicked: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (ctx) => UploadFileScreen()));
+                },
               ),
-              CoursesWidget(
+              const CoursesWidget(
                 rankValue: 'top_seller',
               ),
             ],

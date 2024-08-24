@@ -41,7 +41,7 @@ class OnBoardItemWidget extends StatelessWidget {
               color: ColorUtility.gray,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 70,
           )
         ],

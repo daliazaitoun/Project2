@@ -85,7 +85,7 @@ class _LecturesWidgetState extends State<LecturesWidget> {
                                     "Lecture 1",
                                     style: TextStyle(),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
                                       onPressed: () {},
                                       icon: Icon(Icons.file_download_outlined)),
@@ -94,8 +94,8 @@ class _LecturesWidgetState extends State<LecturesWidget> {
                               Text("Lecture name"),
             
                               Text("Lecture description 00000000000000"),
-                              Spacer(),
-                              Row(
+                              const Spacer(),
+                               Row(
                                 children: [
                                   Text("Duration: \n 10 min"),
                                   Spacer(),
