@@ -2,8 +2,10 @@ import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project2/blocs/course/course_bloc.dart';
 import 'package:project2/cubit/auth_cubit.dart';
 import 'package:project2/firebase_options.dart';
+import 'package:project2/pages/course_details_page.dart';
 import 'package:project2/pages/courses_page.dart';
 import 'package:project2/pages/home_page.dart';
 import 'package:project2/pages/login_page.dart';
@@ -26,7 +28,9 @@ void main() async {
     print('Failed to initialize Firebase: $e');
   }
   runApp(MultiBlocProvider(
-    providers: [BlocProvider(create: (ctx) => AuthCubit())],
+    providers: [BlocProvider(create: (ctx) => AuthCubit()),
+     BlocProvider(create: (ctx) => CourseBloc()),
+    ],
     child: const MyApp(),
   ));
 }
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (settings) {
         final String routeName = settings.name ?? '';
-        // final Map? data = settings.arguments as Map?;
+         final dynamic data = settings.arguments;
         switch (routeName) {
           case LoginPage.id:
             return MaterialPageRoute(builder: (context) => const LoginPage());
@@ -67,6 +71,11 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const ProfilePage());
           case CoursePage.id:
             return MaterialPageRoute(builder: (context) => CoursePage());
+              case CourseDetailsPage.id:
+            return MaterialPageRoute(
+                builder: (context) => CourseDetailsPage(
+                      course: data,
+                    ));
 
           default:
             return MaterialPageRoute(builder: (context) => const SplashPage());

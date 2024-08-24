@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/models/course.dart';
+import 'package:project2/pages/course_details_page.dart';
 import 'package:project2/pages/courses_page.dart';
 import 'package:project2/utils/color_utilis.dart';
 
@@ -68,10 +69,10 @@ class _CoursesWidgetState extends State<CoursesWidget> {
               return SingleChildScrollView(
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => CoursePage()));
-                    // Navigator.push(context, MaterialPageRoute(
-                    //       builder: (context) => CoursePage(course: courses[index])));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (ctx) => CoursePage()));
+                     Navigator.pushNamed(context, CourseDetailsPage.id,
+                        arguments: courses[index]);
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
