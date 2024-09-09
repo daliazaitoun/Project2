@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project2/blocs/course/course_bloc.dart';
 import 'package:project2/models/course.dart';
 import 'package:project2/models/lecture.dart';
 import 'package:project2/utils/app_enums.dart';
@@ -19,6 +21,32 @@ class CourseOptionsWidgets extends StatefulWidget {
 }
 
 class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
+  late Future<QuerySnapshot<Map<String, dynamic>>> futureCall;
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  List<Lecture>? lectures;
+  bool isLoading = false;
+  void init() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 1200), () async {});
+    if (!mounted) return;
+    lectures = await context.read<CourseBloc>().getLectures();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  Lecture? selectedLecture;
+
   @override
   Widget build(BuildContext context) {
     switch (widget.courseOption) {
@@ -28,7 +56,7 @@ class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
                 .collection('courses')
                 .doc(widget.course.id)
                 .collection('Lectures')
-                 .orderBy('sort' )
+                .orderBy('sort')
                 .get(),
             builder: (ctx, snapshot) {
               print('course Id ${widget.course.id}');
@@ -62,7 +90,11 @@ class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
                 crossAxisCount: 2,
                 children: List.generate(lectures.length, (index) {
                   return InkWell(
-                    onTap: () => widget.onLectureChosen(lectures[index]),
+                    onTap: () {
+                      widget.onLectureChosen(lectures[index]);
+                      selectedLecture = lectures[index];
+                      setState(() {});
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -99,11 +131,13 @@ class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
                                     )),
                               ],
                             ),
-                            Text(lectures[index].title!, style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                            Text(lectures[index].describtion!,
+                            Text(
+                              lectures[index].title ?? "",
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              lectures[index].describtion ?? "",
                               style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w400),
                             ),
@@ -113,7 +147,10 @@ class _CourseOptionsWidgetsState extends State<CourseOptionsWidgets> {
                                 Text(
                                     "Duration \n ${lectures[index].duration} min"),
                                 const Spacer(),
-                                const Icon(Icons.play_circle_outline_sharp,size: 45,),
+                                const Icon(
+                                  Icons.play_circle_outline_sharp,
+                                  size: 45,
+                                ),
                               ],
                             ),
                           ],

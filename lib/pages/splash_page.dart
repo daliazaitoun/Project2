@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/pages/home_page.dart';
 import 'package:project2/pages/login_page.dart';
+import 'package:project2/pages/nav_page.dart';
 import 'package:project2/pages/onboarding_page.dart';
 import 'package:project2/services/pref.service.dart';
 import 'package:project2/utils/image_utility.dart';
@@ -44,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
     if (mounted) {
       if (PreferencesService.isOnBoardingSeen) {
         if (FirebaseAuth.instance.currentUser != null) {
-          Navigator.pushReplacementNamed(context, HomePage.id);
+          Navigator.pushReplacementNamed(context, NavPage.id);
         } else {
           Navigator.pushReplacementNamed(context, LoginPage.id);
         }

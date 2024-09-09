@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/pages/login_page.dart';
 import 'package:project2/widgets/Custom_text_button.dart';
@@ -34,16 +38,56 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                   if (snapshot.data != null) {
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           alignment: Alignment.center,
                           child: Column(
                             children: [
-                              CircleAvatar(
-                                radius: 50,
-                                //   backgroundImage: AssetImage('assets/profile_picture.png'),
-                              ),
+                              Stack(children: [
+                                CircleAvatar(
+                                  radius: 60,
+                                ),
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Container(
+                                
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.white,
+                                        ),
+                                        child: IconButton(
+                                            onPressed: () async {
+                      var imageResult = await FilePicker.platform
+                          .pickFiles(type: FileType.image, withData: true);
+                      if (imageResult != null) {
+                        var storageRef = FirebaseStorage.instance
+                            .ref('images/${imageResult.files.first.name}');
+                        var uploadResult = await storageRef.putData(
+                            imageResult.files.first.bytes!,
+                            SettableMetadata(
+                              contentType:
+                                  'image/${imageResult.files.first.name.split('.').last}',
+                            ));
+            
+                        if (uploadResult.state == TaskState.success) {
+                          var downloadUrl =
+                              await uploadResult.ref.getDownloadURL();
+                          print('>>>>>Image upload${downloadUrl}');
+                        }
+                      } else {
+                        print('No file selected');
+                      }
+                    },
+                                            icon: Icon(
+                                              Icons.image,
+                                              size: 30,
+                                             
+                                            ))))
+                              ]),
                               const SizedBox(height: 10),
                               Text(
                                 '${FirebaseAuth.instance.currentUser?.displayName}',
@@ -65,19 +109,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         CardWidget(title: "Edit", onPressed: () {}),
                         CardWidget(title: "Settings", onPressed: () {}),
-                        CardWidget(title: "Achievements", onPressed: () {}),
                         CardWidget(title: "About us", onPressed: () {}),
-                        CustomTextButton(
-                            label: "logout",
+                        TextButton(
                             onPressed: () {
-                           //   Navigator.push(
-                               //   context, MaterialPageRoute(builder: (ctx)=> HomePage()));
-                               FirebaseAuth.instance.signOut();
-                             Navigator.push(
+                              FirebaseAuth.instance.signOut();
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (ctx) => LoginPage()));
-                            }),
+                            },
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(color: Colors.red),
+                            ))
                       ],
                     );
                   } else {
@@ -87,12 +131,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         CustomTextButton(
                             label: "Login",
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (ctx)=> LoginPage()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => LoginPage()));
                             }),
                       ],
                     );
-
-            
                   }
                 }),
           ],

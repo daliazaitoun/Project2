@@ -2,14 +2,18 @@ import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:project2/blocs/course/course_bloc.dart';
+import 'package:project2/blocs/lecture/lecture_bloc.dart';
 import 'package:project2/cubit/auth_cubit.dart';
 import 'package:project2/firebase_options.dart';
+import 'package:project2/pages/categories_page.dart';
 import 'package:project2/pages/course_details_page.dart';
-import 'package:project2/pages/courses_page.dart';
 import 'package:project2/pages/home_page.dart';
 import 'package:project2/pages/login_page.dart';
+import 'package:project2/pages/nav_page.dart';
 import 'package:project2/pages/onboarding_page.dart';
+import 'package:project2/pages/payment_page.dart';
 import 'package:project2/pages/profile.dart';
 import 'package:project2/pages/reset_password_page.dart';
 import 'package:project2/pages/signup_page.dart';
@@ -28,9 +32,11 @@ void main() async {
   } catch (e) {
     print('Failed to initialize Firebase: $e');
   }
+    await dotenv.load(fileName: ".env");
   runApp(MultiBlocProvider(
     providers: [BlocProvider(create: (ctx) => AuthCubit()),
      BlocProvider(create: (ctx) => CourseBloc()),
+     BlocProvider(create: (ctx) => LectureBloc()),
     ],
     child: const MyApp(),
   ));
@@ -47,11 +53,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: ColorUtility.gbScaffold,
         fontFamily: ' PlusJakartaSans',
         colorScheme: ColorScheme.fromSeed(seedColor: ColorUtility.main),
         useMaterial3: true,
       ),
+    //  home: NavPage(),
       onGenerateRoute: (settings) {
         final String routeName = settings.name ?? '';
          final dynamic data = settings.arguments;
@@ -77,7 +83,12 @@ class MyApp extends StatelessWidget {
                 builder: (context) => CourseDetailsPage(
                       course: data,
                     ));
-
+                    case NavPage.id:
+            return MaterialPageRoute(builder: (context) => const NavPage());
+                case CategoriesPage.id:
+            return MaterialPageRoute(builder: (context) => const CategoriesPage());
+          case PaymentPage.id :
+          return MaterialPageRoute(builder: (context) => const PaymentPage());
           default:
             return MaterialPageRoute(builder: (context) => const SplashPage());
         }

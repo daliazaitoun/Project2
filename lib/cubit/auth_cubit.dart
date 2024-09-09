@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project2/pages/home_page.dart';
+import 'package:project2/pages/nav_page.dart';
 
 part 'auth_state.dart';
 
@@ -28,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
           ),
         );
 
-        Navigator.pushReplacementNamed(context, HomePage.id);
+        Navigator.pushReplacementNamed(context, NavPage.id);
       }
     } on FirebaseAuthException catch (e) {
       if (!context.mounted) return;
