@@ -7,6 +7,7 @@ import 'package:project2/blocs/course/course_bloc.dart';
 import 'package:project2/blocs/lecture/lecture_bloc.dart';
 import 'package:project2/cubit/auth_cubit.dart';
 import 'package:project2/firebase_options.dart';
+import 'package:project2/pages/cart_page.dart';
 import 'package:project2/pages/categories_page.dart';
 import 'package:project2/pages/course_details_page.dart';
 import 'package:project2/pages/home_page.dart';
@@ -89,6 +90,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const CategoriesPage());
           case PaymentPage.id :
           return MaterialPageRoute(builder: (context) => const PaymentPage());
+            case CartPage.id:
+            return MaterialPageRoute(builder: (context) => const CartPage());
           default:
             return MaterialPageRoute(builder: (context) => const SplashPage());
         }

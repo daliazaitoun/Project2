@@ -49,7 +49,11 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   width: 10,
                 ),
                 itemBuilder: (context, index) => InkWell(
-                  onTap: () {}, // on tap needed
+                  onTap: () {
+                    // Navigate to a new screen for the selected category
+                    // For simplicity, let's just print the category name
+                    print('Selected category: ${categories[index].name?? 'No Name'}');
+                  }, // on tap needed
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(

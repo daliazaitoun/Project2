@@ -37,7 +37,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             children: [
              Padding(
                padding: const EdgeInsets.all(12.0),
-               child: ExpansionWidget(title: 'business',),
+               child: ExpansionWidget(),
              ),
              
             
